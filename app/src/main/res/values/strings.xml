@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ZELauncher</string>
+
+    <string name="set_app">Set app</string>
+    <string name="set_menu">Set menu</string>
+    <string name="clear">Clear</string>
+    <string name="information">Information</string>
+    <string name="uninstall">Uninstall</string>
+</resources>

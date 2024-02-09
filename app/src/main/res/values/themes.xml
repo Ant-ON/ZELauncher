@@ -1,0 +1,54 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.EInk" parent="@android:style/Theme.DeviceDefault.Light.NoActionBar">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="android:textColorPrimary">#FF000000</item>
+        <item name="android:textColorTertiary">#FF000000</item>
+        <item name="android:textColorSecondary">#FF000000</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:colorControlHighlight">@android:color/transparent</item>
+
+        <item name="android:listViewStyle">@style/Theme.EInk.ListView</item>
+        <item name="android:listViewWhiteStyle">@style/Theme.EInk.ListView</item>
+        <item name="android:alertDialogTheme">@style/Theme.EInk.AlertDialog</item>
+        <item name="android:popupMenuStyle">@style/Theme.EInk.PopupMenu</item>
+        <item name="android:listPopupWindowStyle">@style/Theme.EInk.PopupWindow</item>
+        <item name="android:contextPopupMenuStyle">@style/Theme.EInk.ListPopupWindow</item>
+    </style>
+
+    <style name="Theme.EInk.PopupMenu" parent="android:Widget.Material.Light.PopupMenu">
+        <item name="android:popupBackground">@drawable/bg_dialog</item>
+
+        <item name="android:popupElevation">0px</item>
+        <item name="android:windowElevation">0px</item>
+        <item name="android:overlapAnchor">true</item>
+    </style>
+
+    <style name="Theme.EInk.PopupWindow" parent="android:Widget.Material.Light.PopupWindow">
+        <item name="android:popupElevation">0px</item>
+        <item name="android:windowElevation">0px</item>
+    </style>
+
+    <style name="Theme.EInk.AlertDialog" parent="android:Theme.Material.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/bg_dialog</item>
+        <item name="android:windowElevation">0px</item>
+    </style>
+
+    <style name="Theme.EInk.ListPopupWindow" parent="android:Widget.Material.Light.ListPopupWindow">
+        <item name="android:dropDownSelector">@drawable/sel_list</item>
+        <item name="android:popupBackground">@drawable/bg_dialog</item>
+
+        <item name="android:popupElevation">0px</item>
+        <item name="android:windowElevation">0px</item>
+        <item name="android:overlapAnchor">true</item>
+    </style>
+
+    <style name="Theme.EInk.ListView" parent="@style/Theme.EInk">
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:fadingEdge">none</item>
+        <item name="android:listSelector">@drawable/sel_list</item>
+        <item name="android:divider">@null</item>
+    </style>
+
+    <style name="Theme.EInk" parent="Base.Theme.EInk" />
+</resources>
