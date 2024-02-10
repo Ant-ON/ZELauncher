@@ -1,0 +1,8 @@
+<resources>
+    <string name="set_app">Установить приложение</string>
+    <string name="set_menu">Установить меню</string>
+    <string name="clear">Очистить</string>
+    <string name="information">Информация</string>
+    <string name="uninstall">Удалить</string>
+    <string name="applications">Приложения</string>
+</resources>
