@@ -8,8 +8,10 @@
         <item name="android:windowAnimationStyle">@null</item>
         <item name="android:colorControlHighlight">@android:color/transparent</item>
 
+        <item name="android:gridViewStyle">@style/Theme.EInk.ListView</item>
         <item name="android:listViewStyle">@style/Theme.EInk.ListView</item>
         <item name="android:listViewWhiteStyle">@style/Theme.EInk.ListView</item>
+
         <item name="android:alertDialogTheme">@style/Theme.EInk.AlertDialog</item>
         <item name="android:popupMenuStyle">@style/Theme.EInk.PopupMenu</item>
         <item name="android:listPopupWindowStyle">@style/Theme.EInk.PopupWindow</item>
@@ -48,6 +50,7 @@
         <item name="android:fadingEdge">none</item>
         <item name="android:listSelector">@drawable/sel_list</item>
         <item name="android:divider">@null</item>
+        <item name="android:overScrollMode">never</item>
     </style>
 
     <style name="Theme.EInk" parent="Base.Theme.EInk" />

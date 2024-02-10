@@ -33,13 +33,20 @@ public class MenuActivity extends Activity implements AdapterView.OnItemClickLis
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_menu);
 
-        final GridView gv = new GridView(this);
-        gv.setNumColumns(3);
+        final GridView gv = findViewById(R.id.gv);
         gv.setAdapter(new ApplicationAdapter(this));
         gv.setOnItemClickListener(this);
         gv.setOnItemLongClickListener(this);
-        setContentView(gv);
+
+        final View ivBack = findViewById(R.id.ivBack);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finishAndRemoveTask();
+            }
+        });
     }
 
     @Override
