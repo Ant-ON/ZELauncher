@@ -109,7 +109,7 @@ public class MenuActivity extends Activity implements AdapterView.OnItemClickLis
         {
             mInflater = (LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             mPM = ctx.getPackageManager();
-            mList = ApplicationList.get(mPM);
+            mList = new ArrayList<>(ApplicationList.get(mPM));
         }
 
         @Override

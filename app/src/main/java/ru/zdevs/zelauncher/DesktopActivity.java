@@ -1,9 +1,12 @@
 package ru.zdevs.zelauncher;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -32,13 +35,34 @@ public class DesktopActivity extends Activity implements View.OnClickListener, V
 {
     private static final int REQ_SET_APP = 1001;
 
+    private final BroadcastReceiver mAppBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            final Uri data = intent.getData();
+            if (data == null)
+            {
+                ApplicationList.clear();
+                return;
+            }
+
+            final String pkg = data.getEncodedSchemeSpecificPart();
+            if (pkg == null)
+                ApplicationList.clear();
+            else if (Intent.ACTION_PACKAGE_ADDED.equals(intent.getAction()))
+                ApplicationList.add(getPackageManager(), pkg);
+            else
+                ApplicationList.delete(pkg);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desktop);
 
-        ImageView iv = findViewById(R.id.ivThumb);
+        final ImageView iv = findViewById(R.id.ivThumb);
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -61,7 +85,7 @@ public class DesktopActivity extends Activity implements View.OnClickListener, V
                 TableRow.LayoutParams lp = new TableRow.LayoutParams(0, TableLayout.LayoutParams.MATCH_PARENT, 1);
                 v.setLayoutParams(lp);
                 //v.setImageDrawable(getDrawable(R.drawable.ic_add));
-                v.setBackground(getDrawable(R.drawable.bg_button));
+                //v.setBackground(getDrawable(R.drawable.bg_button));
                 v.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 v.setOnClickListener(this);
                 v.setOnLongClickListener(this);
@@ -72,6 +96,12 @@ public class DesktopActivity extends Activity implements View.OnClickListener, V
             tl.addView(tr);
         }
 
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_PACKAGE_ADDED);
+        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        filter.addDataScheme("package");
+        registerReceiver(mAppBroadcastReceiver, filter);
+
         new LoadApplicationButtons().execute();
     }
 
@@ -81,6 +111,14 @@ public class DesktopActivity extends Activity implements View.OnClickListener, V
         super.onResume();
 
         updateCurrentBook();
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+
+        unregisterReceiver(mAppBroadcastReceiver);
     }
 
     @Override
@@ -111,7 +149,8 @@ public class DesktopActivity extends Activity implements View.OnClickListener, V
                     ((TextView) findViewById(R.id.tvAutor)).setText(c.getString(1));
                     ((TextView) findViewById(R.id.tvProgress)).setText(c.getString(2));
                     final byte[] thumb = c.getBlob(3);
-                    if (thumb != null) {
+                    if (thumb != null)
+                    {
                         final Bitmap bmp = BitmapFactory.decodeByteArray(thumb, 0, thumb.length);
                         iv.setImageBitmap(bmp);
                     } else
@@ -222,8 +261,12 @@ public class DesktopActivity extends Activity implements View.OnClickListener, V
                     {
                         iv.setImageDrawable(ab.drawable);
                         iv.setTag(ab.menu ? "menu" : ab.activity);
+                        iv.setBackground(getDrawable(R.drawable.bg_button));
                     } else
+                    {
                         iv.setImageDrawable(getDrawable(R.drawable.ic_add));
+                        iv.setBackground(null);
+                    }
                 }
             }
         }
